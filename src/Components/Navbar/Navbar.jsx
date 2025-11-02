@@ -1,7 +1,18 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
+  const { user, signOutWithUser } = use(AuthContext);
+  const handleSingOut = () => {
+    signOutWithUser()
+      .then(() => {
+        alert("Logged Out Successfully");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const links = (
     <>
       <li>
@@ -10,15 +21,19 @@ const Navbar = () => {
       <li>
         <NavLink to="/allProducts">All Products</NavLink>
       </li>
-      <li>
-        <NavLink>My Products</NavLink>
-      </li>
-      <li>
-        <NavLink>My Bids</NavLink>
-      </li>
-      <li>
-        <NavLink>Create Product</NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink>My Products</NavLink>
+          </li>
+          <li>
+            <NavLink>My Bids</NavLink>
+          </li>
+          <li>
+            <NavLink>Create Product</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -56,8 +71,23 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div className="navbar-end ">
+        {user ? (
+          <button onClick={handleSingOut} className="btn ">
+            Log Out
+          </button>
+        ) : (
+          <Link className="btn" to="/login">
+            Login
+          </Link>
+        )}
+        {user ? (
+          ""
+        ) : (
+          <Link className="btn ml-2" to="/register">
+            Register
+          </Link>
+        )}
       </div>
     </div>
   );

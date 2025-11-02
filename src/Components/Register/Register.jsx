@@ -1,8 +1,33 @@
-import React from "react";
+import React, { use } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router";
 
 const Register = () => {
+  const { createUser, signInWithGoogle } = use(AuthContext);
+  const navigate = useNavigate();
   const handleRegister = (e) => {
-    e.target.preventDefault();
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const photo = e.target.photo.value;
+    console.log(email, name, password, photo);
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleGoogSignUP = () => {
+    signInWithGoogle()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className="flex justify-center min-h-screen items-center">
@@ -45,6 +70,12 @@ const Register = () => {
               />
 
               <button className="btn btn-neutral mt-4">Login</button>
+              <div className="divider">OR</div>
+              <button onClick={handleGoogSignUP} className="btn ">
+                {" "}
+                <FcGoogle size={23} />
+                Sing Up With Google
+              </button>
             </fieldset>
           </form>
         </div>
