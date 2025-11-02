@@ -1,9 +1,10 @@
 import React from "react";
+import ProductDeals from "../ProductDeals/ProductDeals";
 
 const Home = () => {
   return (
     <div>
-      <h2 className="bg-primary">Home</h2>
+      <h2>Home</h2>
     </div>
   );
 };

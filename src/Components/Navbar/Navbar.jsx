@@ -24,13 +24,10 @@ const Navbar = () => {
       {user && (
         <>
           <li>
-            <NavLink>My Products</NavLink>
+            <NavLink to="/myProducts">My Products</NavLink>
           </li>
           <li>
-            <NavLink>My Bids</NavLink>
-          </li>
-          <li>
-            <NavLink>Create Product</NavLink>
+            <NavLink to="/myBids">My Bids</NavLink>
           </li>
         </>
       )}
