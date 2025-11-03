@@ -13,6 +13,7 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result);
+        e.target.reset();
       })
       .catch((error) => {
         console.log(error);

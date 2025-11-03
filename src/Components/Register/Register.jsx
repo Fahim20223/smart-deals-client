@@ -12,11 +12,13 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const photo = e.target.photo.value;
+
     console.log(email, name, password, photo);
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
         navigate("/");
+        e.target.reset();
       })
       .catch((error) => {
         console.log(error);
