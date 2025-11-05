@@ -8,14 +8,18 @@ const MyBids = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/bids?email=${user.email}`)
+      fetch(`http://localhost:3000/bids?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log("after bid", data);
           setBids(data);
         });
     }
-  }, [user?.email]);
+  }, [user]);
 
   const handleRemoveBid = (_id) => {
     Swal.fire({
@@ -50,7 +54,7 @@ const MyBids = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-11/12 mx-auto">
       <h2>My Bids {bids.length}</h2>
       <div className="overflow-x-auto">
         <table className="table">
